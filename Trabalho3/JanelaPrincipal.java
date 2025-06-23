@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,17 +8,17 @@ public class JanelaPrincipal extends JFrame {
 
     private MyPanel[] blocos = new MyPanel[TOTAL]; //vetor 400 posiçoes, cada um com mypanel individual -> um bloco
 
-    private ImageIcon fundoIcon = new ImageIcon(getClass().getResource("")); //carrega e busca a imagem da pasta
+    private ImageIcon fundoIcon = new ImageIcon(getClass().getResource("/imagens/fundo.png")); //carrega e busca a imagem da pasta
 
     private int posAv = 0;
     private int[] tiposBlocos = new int[TOTAL]; // guarda tipo de cada bloco
-    private ImageIcon avatarIcon = new ImageIcon(getClass().getResource(""));
+    private ImageIcon avatarIcon = new ImageIcon(getClass().getResource("/imagens/avatar.png"));
     private ImageIcon[] imagensBlocos = {
-            new ImageIcon(getClass().getResource("")), // 0
-            new ImageIcon(getClass().getResource("")), // 1
-            new ImageIcon(getClass().getResource("")), // 2
-            new ImageIcon(getClass().getResource("")), // 3
-            new ImageIcon(getClass().getResource(""))  // 4
+            new ImageIcon(getClass().getResource("/imagens/terra.png")), // 0
+            new ImageIcon(getClass().getResource("/imagens/grama.png")), // 1
+            new ImageIcon(getClass().getResource("/imagens/tijolo.png")), // 2
+            new ImageIcon(getClass().getResource("/imagens/flor.png")), // 3
+            new ImageIcon(getClass().getResource("/imagens/fundo.png"))  // 4
     };
     private void desenharAvatar() {
         for (int i = 0; i < TOTAL; i++) {
@@ -66,7 +65,7 @@ public class JanelaPrincipal extends JFrame {
         setSize(640, 640); //tamanho da janela
         setDefaultCloseOperation(EXIT_ON_CLOSE); //fecha quando clica no x
 
-        setLayout(new GridLayout(LINHAS, COLUNAS)); //grade regular
+        setLayout(new GridLayout(LINHAS, COLUNAS, 0, 0)); //grade regular SEM espaçamento entre os blocos
 
         for (int i = 0; i < TOTAL; i++) {
             tiposBlocos[i] = BlocoTipo.Fundo;
@@ -85,10 +84,16 @@ public class JanelaPrincipal extends JFrame {
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         setVisible(true); //torna visivel a janela
+        setResizable(false); // Impede que a janela mude de tamanho e distorça o grid
+    }
 
+    private ImageIcon redimensionarImagem(String caminho) {
+        Image img = new ImageIcon(getClass().getResource(caminho)).getImage();
+        return new ImageIcon(img.getScaledInstance(32, 32, Image.SCALE_SMOOTH));
     }
 
     public static void main(String[] args) {
+
         new JanelaPrincipal();
     }
 }
